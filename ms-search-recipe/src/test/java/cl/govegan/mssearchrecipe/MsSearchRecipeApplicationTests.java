@@ -1,10 +1,10 @@
-package cl.govegan.govegandev;
+package cl.govegan.mssearchrecipe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GoveganDevApplicationTests {
+class MsSearchRecipeApplicationTests {
 
 	@Test
 	void contextLoads() {
