@@ -1,0 +1,14 @@
+{
+   "configurations": [
+      {
+         "type": "java",
+         "name": "Spring Boot-GoveganDevApplication<govegan-dev>",
+         "request": "launch",
+         "cwd": "${workspaceFolder}",
+         "mainClass": "cl.govegan.govegandev.GoveganDevApplication",
+         "projectName": "govegan-dev",
+         "args": "",
+         "envFile": "${workspaceFolder}/.env"
+      }
+   ]
+}
