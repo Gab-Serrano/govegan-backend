@@ -2,6 +2,13 @@
    "configurations": [
       {
          "type": "java",
+         "name": "MsSearchRecipeApplication",
+         "request": "launch",
+         "mainClass": "cl.govegan.mssearchrecipe.MsSearchRecipeApplication",
+         "projectName": "ms-search-recipe"
+      },
+      {
+         "type": "java",
          "name": "Spring Boot-GoveganDevApplication<govegan-dev>",
          "request": "launch",
          "cwd": "${workspaceFolder}",
