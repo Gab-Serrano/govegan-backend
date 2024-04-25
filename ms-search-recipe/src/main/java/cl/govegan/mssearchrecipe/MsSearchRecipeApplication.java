@@ -10,4 +10,5 @@ public class MsSearchRecipeApplication {
 		SpringApplication.run(MsSearchRecipeApplication.class, args);
 	}
 
+	
 }
