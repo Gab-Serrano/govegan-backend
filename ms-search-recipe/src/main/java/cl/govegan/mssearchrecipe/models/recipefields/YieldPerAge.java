@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NutritionalInfo {
-   private String totalKcal;
-   private Fat fat;
-   private Carbohydrates carbohydrates;
-   private Protein protein;
-   private AditionalInfo aditionalInfo; 
+public class YieldPerAge {
+   private String adult;
+   private String threeToEight;
+   private String nineToTwelve;
+   private String teen;   
 }
