@@ -9,6 +9,7 @@ import cl.govegan.mssearchrecipe.models.Recipe;
 @Service
 public interface RecipeService {
    
+   List<Recipe> findAll();
    List<Recipe> findByTitleContaining(String keywords);
 
 }
