@@ -1,4 +1,4 @@
-package cl.govegan.mssearchrecipe.request.recipefields;
+package cl.govegan.mssearchrecipe.controller.requestclases.recipefields;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
