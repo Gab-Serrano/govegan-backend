@@ -16,6 +16,16 @@
          "projectName": "govegan-dev",
          "args": "",
          "envFile": "${workspaceFolder}/.env"
+      },
+      {
+         "type": "java",
+         "name": "Spring Boot-MsSearchRecipeApplication<ms-search-recipe>",
+         "request": "launch",
+         "cwd": "${workspaceFolder}",
+         "mainClass": "cl.govegan.mssearchrecipe.MsSearchRecipeApplication",
+         "projectName": "ms-search-recipe",
+         "args": "",
+         "envFile": "${workspaceFolder}/.env"
       }
    ]
 }
