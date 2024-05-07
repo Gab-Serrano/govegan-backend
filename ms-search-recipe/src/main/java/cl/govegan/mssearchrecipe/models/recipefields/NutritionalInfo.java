@@ -12,5 +12,5 @@ public class NutritionalInfo {
    private Fat fat;
    private Carbohydrates carbohydrates;
    private Protein protein;
-   private AditionalInfo aditionalInfo; 
+   private AdditionalInfo additionalInfo; 
 }
