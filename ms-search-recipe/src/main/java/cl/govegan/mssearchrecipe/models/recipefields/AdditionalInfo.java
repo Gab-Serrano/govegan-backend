@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AditionalInfo {
+public class AdditionalInfo {
       private String sugar;
       private String fiber;
       private String saturatedFat;

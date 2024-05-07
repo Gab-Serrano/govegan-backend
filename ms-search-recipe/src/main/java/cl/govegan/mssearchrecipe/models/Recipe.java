@@ -25,5 +25,6 @@ public class Recipe {
       private YieldPerAge yieldPerAge;
       private String[] ingredientLines;
       private String[] directions;
+      private String chefTips;
       private String[] tags;
 }
