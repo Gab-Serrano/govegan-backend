@@ -1,4 +1,4 @@
-package cl.govegan.mssearchrecipe.repository;
+package cl.govegan.mssearchrecipe.repositories;
 
 import java.util.List;
 

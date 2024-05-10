@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import cl.govegan.mssearchrecipe.models.Recipe;
-import cl.govegan.mssearchrecipe.repository.RecipeRepository;
+import cl.govegan.mssearchrecipe.repositories.RecipeRepository;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
