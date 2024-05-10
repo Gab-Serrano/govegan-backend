@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +19,7 @@ import cl.govegan.mssearchrecipe.service.RecipeService;
 import cl.govegan.mssearchrecipe.utils.HttpResponse;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/recipes")
 public class SearchRecipeController {
 
     @Autowired
@@ -31,7 +30,7 @@ public class SearchRecipeController {
         return ResponseEntity.status(HttpStatus.OK).body(new HttpResponse(200, "API is running fine"));
     }
 
-    @GetMapping("/recipes")
+    @GetMapping()
     public ResponseEntity<HttpResponse> findAllRecipes(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -50,7 +49,7 @@ public class SearchRecipeController {
         }
     }
 
-    @GetMapping("/recipes/findBySearch")
+    @GetMapping("/findBySearch")
     public ResponseEntity<HttpResponse> searchRecipeByText(@RequestParam String search) {
         try {
             Optional<List<Recipe>> recipesResult = Optional.ofNullable(recipeService.findByTitleContaining(search));

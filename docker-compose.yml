@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  ms-auth:
+    container_name: ms-auth
+    build:
+      context: /ms-auth
+      dockerfile: Dockerfile
+    image: ms-auth
+    ports:
+      - "8081:8081"
+    networks:
+      - spring-cloud-network
+  
+  ms-search-recipe:
+    container_name: ms-search-recipe
+    build:
+      context: /ms-search-recipe
+      dockerfile: Dockerfile
+    image: ms-search-recipe
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-cloud-network
+networks:
+  spring-cloud-network:
+    driver: bridge
