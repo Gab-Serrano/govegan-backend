@@ -1,4 +1,4 @@
-package cl.govegan.msauth.auth.Config;
+package cl.govegan.msauth.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,6 @@ public class SecurityConfig {
                .authorizeHttpRequests(authorizeRequests ->
                        authorizeRequests
                                .requestMatchers("/api/v1/auth/**").permitAll()
-                               .requestMatchers("/api/v1/recipes/**").permitAll()
                                .anyRequest().authenticated()
                )
                .sessionManagement(sessionManagementCustomizer -> sessionManagementCustomizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
