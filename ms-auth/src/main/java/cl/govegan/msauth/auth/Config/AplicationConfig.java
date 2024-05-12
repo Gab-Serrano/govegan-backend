@@ -1,4 +1,4 @@
-package cl.govegan.msauth.auth.Config;
+package cl.govegan.msauth.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
