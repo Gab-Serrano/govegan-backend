@@ -1,4 +1,4 @@
-package cl.govegan.mssearchrecipe.controller;
+package cl.govegan.msauth.auth.controller;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-public class SearchRecipeControllerConfig implements WebMvcConfigurer{
+public class AuthControllerConfig implements WebMvcConfigurer{
    
    @Override
    public void addCorsMappings(CorsRegistry registry) {
