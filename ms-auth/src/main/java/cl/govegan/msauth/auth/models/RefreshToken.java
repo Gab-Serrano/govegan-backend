@@ -1,4 +1,6 @@
-package cl.govegan.msauth.user.models;
+package cl.govegan.msauth.auth.models;
+
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -13,16 +15,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document(collection = "users")
-public class User {
+@Document(collection = "refreshTokens")
+public class RefreshToken {
 
-   @Id
-   private String id;
+    @Id
+    private String id;
 
-   @Indexed(unique = true)
-   private String username;
-   
-   private String email;
-   private String password;
-   private Role role;
+    @Indexed(unique = true)
+    private String token;
+
+    private String username;
+
+    private Date expiryDate;
 }
