@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cl.govegan</groupId>
-	<artifactId>ms-auth</artifactId>
+	<artifactId>ms-auth-user</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ms-auth</name>
+	<name>ms-auth-user</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
