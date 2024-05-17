@@ -36,6 +36,26 @@
          "projectName": "ms-auth",
          "args": "",
          "envFile": "${workspaceFolder}/.env"
+      },
+      {
+         "type": "java",
+         "name": "Spring Boot-MsAuthApplication<ms-auth-user>",
+         "request": "launch",
+         "cwd": "${workspaceFolder}",
+         "mainClass": "cl.govegan.msauth.MsAuthApplication",
+         "projectName": "ms-auth-user",
+         "args": "",
+         "envFile": "${workspaceFolder}/.env"
+      },
+      {
+         "type": "java",
+         "name": "Spring Boot-MsAuthApplication<ms-auth-user>",
+         "request": "launch",
+         "cwd": "${workspaceFolder}",
+         "mainClass": "cl.govegan.msauthuser.MsAuthApplication",
+         "projectName": "ms-auth-user",
+         "args": "",
+         "envFile": "${workspaceFolder}/.env"
       }
    ]
 }

@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  ms-auth:
-    container_name: ms-auth
+  ms-auth-user:
+    container_name: ms-auth-user
     build:
       context: /ms-auth
       dockerfile: Dockerfile
-    image: ms-auth
+    image: ms-auth-user
     ports:
       - "8081:8081"
     networks:
