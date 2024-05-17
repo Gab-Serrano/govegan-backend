@@ -12,6 +12,8 @@ import cl.govegan.msauthuser.auth.requests.RegisterRequest;
 import cl.govegan.msauthuser.auth.response.AuthResponse;
 import cl.govegan.msauthuser.exceptions.DuplicateUsernameException;
 import cl.govegan.msauthuser.user.config.UserDetailsImpl;
+import cl.govegan.msauthuser.user.models.Gender;
+import cl.govegan.msauthuser.user.models.Profile;
 import cl.govegan.msauthuser.user.models.Role;
 import cl.govegan.msauthuser.user.models.User;
 import cl.govegan.msauthuser.user.repositories.UserRepository;
@@ -50,6 +52,23 @@ public class AuthService {
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .email(registerRequest.getEmail())
                 .role(Role.USER)
+                .profile(Profile.builder()
+                        .name(registerRequest.getName())
+                        .profilePicture(registerRequest.getProfilePicture())
+                        .age(registerRequest.getAge())
+                        .gender(Gender.valueOf(registerRequest.getGender().toUpperCase()))
+                        .weight(registerRequest.getWeight())
+                        .height(registerRequest.getHeight())
+                        .city(registerRequest.getCity())
+                        .country(registerRequest.getCountry())
+                        .allergies(registerRequest.getAllergies())
+                        .favoriteFoods(registerRequest.getFavoriteFoods())
+                        .unwantedFoods(registerRequest.getUnwantedFoods())
+                        .favoriteRecipes(registerRequest.getFavoriteRecipes())
+                        .caloriesPerDay(registerRequest.getCaloriesPerDay())
+                        .waterPerDay(registerRequest.getWaterPerDay())
+                        .title("Vegan")
+                        .build())
                 .build();
 
         userRepository.save(user);
