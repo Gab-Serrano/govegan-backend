@@ -48,4 +48,5 @@ public class AuthController {
                 })
                 .orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
     }
+    
 }

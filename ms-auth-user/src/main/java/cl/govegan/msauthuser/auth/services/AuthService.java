@@ -12,11 +12,9 @@ import cl.govegan.msauthuser.auth.requests.RegisterRequest;
 import cl.govegan.msauthuser.auth.response.AuthResponse;
 import cl.govegan.msauthuser.exceptions.DuplicateUsernameException;
 import cl.govegan.msauthuser.user.config.UserDetailsImpl;
-import cl.govegan.msauthuser.user.models.Gender;
-import cl.govegan.msauthuser.user.models.Profile;
-import cl.govegan.msauthuser.user.models.Role;
 import cl.govegan.msauthuser.user.models.User;
 import cl.govegan.msauthuser.user.repositories.UserRepository;
+import cl.govegan.msauthuser.user.services.UserConverter;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -28,6 +26,7 @@ public class AuthService {
       private final RefreshTokenService refreshTokenService;
       private final PasswordEncoder passwordEncoder;
       private final AuthenticationManager authenticationManager;
+      private final UserConverter userConverter;
 
       public AuthResponse loginUser(LoginRequest loginRequest) {
             authenticationManager.authenticate(loginRequest.toAuthentication());
@@ -47,31 +46,9 @@ public class AuthService {
             throw new DuplicateUsernameException("Username " + registerRequest.getUsername() + " is already taken.");
         }
 
-        User user = User.builder()
-                .username(registerRequest.getUsername())
-                .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .email(registerRequest.getEmail())
-                .role(Role.USER)
-                .profile(Profile.builder()
-                        .name(registerRequest.getName())
-                        .profilePicture(registerRequest.getProfilePicture())
-                        .age(registerRequest.getAge())
-                        .gender(Gender.valueOf(registerRequest.getGender().toUpperCase()))
-                        .weight(registerRequest.getWeight())
-                        .height(registerRequest.getHeight())
-                        .city(registerRequest.getCity())
-                        .country(registerRequest.getCountry())
-                        .allergies(registerRequest.getAllergies())
-                        .favoriteFoods(registerRequest.getFavoriteFoods())
-                        .unwantedFoods(registerRequest.getUnwantedFoods())
-                        .favoriteRecipes(registerRequest.getFavoriteRecipes())
-                        .caloriesPerDay(registerRequest.getCaloriesPerDay())
-                        .waterPerDay(registerRequest.getWaterPerDay())
-                        .title("Vegan")
-                        .build())
-                .build();
-
+        User user = userConverter.toUser(registerRequest, passwordEncoder);
         userRepository.save(user);
+
         String accessToken = jwtService.generateToken(new UserDetailsImpl(user));
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user.getUsername());
 
