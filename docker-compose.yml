@@ -22,6 +22,17 @@ services:
       - "8080:8080"
     networks:
       - spring-cloud-network
+
+  ms-food-planner:
+    container_name: ms-food-planner
+    build:
+      context: /ms-food-planner
+      dockerfile: Dockerfile
+    image: ms-food-planner
+    ports:
+      - "8082:8082"
+    networks:
+      - spring-cloud-network
 networks:
   spring-cloud-network:
     driver: bridge
