@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cl.govegan</groupId>
-	<artifactId>ms-search-recipe</artifactId>
+	<artifactId>ms-search-food</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ms-search-recipe</name>
-	<description>Microservicio ms-search-recipe</description>
+	<name>ms-search-food</name>
+	<description>Microservicio ms-search-food</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
