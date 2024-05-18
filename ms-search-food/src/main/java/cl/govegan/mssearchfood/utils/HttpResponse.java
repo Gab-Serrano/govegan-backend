@@ -1,4 +1,4 @@
-package cl.govegan.mssearchrecipe.utils;
+package cl.govegan.mssearchfood.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

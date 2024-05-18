@@ -1,11 +1,11 @@
-package cl.govegan.mssearchrecipe.controller.requests;
+package cl.govegan.mssearchfood.controller.recipecontroller.requests;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import cl.govegan.mssearchrecipe.controller.requests.recipefields.NutritionalInfo;
-import cl.govegan.mssearchrecipe.controller.requests.recipefields.RecipeData;
-import cl.govegan.mssearchrecipe.controller.requests.recipefields.YieldPerAge;
+import cl.govegan.mssearchfood.controller.recipecontroller.requests.recipefields.NutritionalInfo;
+import cl.govegan.mssearchfood.controller.recipecontroller.requests.recipefields.RecipeData;
+import cl.govegan.mssearchfood.controller.recipecontroller.requests.recipefields.YieldPerAge;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package cl.govegan.mssearchrecipe.service;
+package cl.govegan.mssearchfood.services.recipeservices;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import cl.govegan.mssearchrecipe.models.Recipe;
-import cl.govegan.mssearchrecipe.repositories.RecipeRepository;
+import cl.govegan.mssearchfood.models.recipe.Recipe;
+import cl.govegan.mssearchfood.repositories.reciperepository.RecipeRepository;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {

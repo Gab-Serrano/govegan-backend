@@ -1,4 +1,4 @@
-package cl.govegan.mssearchrecipe.controller;
+package cl.govegan.mssearchfood.controller.recipecontroller;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cl.govegan.mssearchrecipe.models.Recipe;
-import cl.govegan.mssearchrecipe.service.RecipeService;
-import cl.govegan.mssearchrecipe.utils.HttpResponse;
+import cl.govegan.mssearchfood.services.recipeservices.RecipeService;
+import cl.govegan.mssearchfood.utils.HttpResponse;
+import cl.govegan.mssearchfood.models.recipe.Recipe;
 
 @RestController
 @RequestMapping("/api/v1/recipes")
