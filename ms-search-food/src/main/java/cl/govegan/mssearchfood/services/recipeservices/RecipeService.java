@@ -1,4 +1,4 @@
-package cl.govegan.mssearchrecipe.service;
+package cl.govegan.mssearchfood.services.recipeservices;
 
 import java.util.List;
 

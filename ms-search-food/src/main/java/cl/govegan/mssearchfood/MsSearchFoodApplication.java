@@ -1,13 +1,13 @@
-package cl.govegan.mssearchrecipe;
+package cl.govegan.mssearchfood;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MsSearchRecipeApplication {
+public class MsSearchFoodApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsSearchRecipeApplication.class, args);
+		SpringApplication.run(MsSearchFoodApplication.class, args);
 	}
 
 	
