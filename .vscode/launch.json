@@ -56,6 +56,16 @@
          "projectName": "ms-auth-user",
          "args": "",
          "envFile": "${workspaceFolder}/.env"
+      },
+      {
+         "type": "java",
+         "name": "Spring Boot-MsSearchFoodApplication<ms-search-food>",
+         "request": "launch",
+         "cwd": "${workspaceFolder}",
+         "mainClass": "cl.govegan.mssearchfood.MsSearchFoodApplication",
+         "projectName": "ms-search-food",
+         "args": "",
+         "envFile": "${workspaceFolder}/.env"
       }
    ]
 }
