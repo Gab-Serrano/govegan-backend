@@ -18,8 +18,8 @@ public interface FoodRepository extends MongoRepository<Food, String> {
    @NonNull
    Page<Food> findAll(@NonNull Pageable pageable);
 
-   @Query("{ 'foodName' : { $regex: ?0, $options: 'i' } }")
-   Page<Food> findByFoodNameContaining(@NonNull String keywords, Pageable pageable);
+   @Query("{ 'name' : { $regex: ?0, $options: 'i' } }")
+   Page<Food> findByNameContaining(@NonNull String keywords, Pageable pageable);
 
    @NonNull
    @Override
