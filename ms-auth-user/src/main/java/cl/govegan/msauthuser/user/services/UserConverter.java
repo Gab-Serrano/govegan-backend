@@ -13,6 +13,11 @@ import cl.govegan.msauthuser.user.models.User;
 public class UserConverter {
 
    public User toUser(RegisterRequest registerRequest, PasswordEncoder passwordEncoder) {
+
+      if ("".equals(registerRequest.getGender())) {
+            registerRequest.setGender("OTRO");
+      }
+
       return User.builder()
             .username(registerRequest.getUsername())
             .password(passwordEncoder.encode(registerRequest.getPassword()))
