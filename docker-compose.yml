@@ -1,10 +1,8 @@
-version: '3'
-
 services:
   ms-auth-user:
     container_name: ms-auth-user
     build:
-      context: /ms-auth
+      context: /ms-auth-user
       dockerfile: Dockerfile
     image: ms-auth-user
     ports:
@@ -13,26 +11,16 @@ services:
       - spring-cloud-network
   
   ms-search-recipe:
-    container_name: ms-search-recipe
+    container_name: ms-search-food
     build:
-      context: /ms-search-recipe
+      context: /ms-search-food
       dockerfile: Dockerfile
-    image: ms-search-recipe
+    image: ms-search-food
     ports:
       - "8080:8080"
     networks:
       - spring-cloud-network
 
-  ms-food-planner:
-    container_name: ms-food-planner
-    build:
-      context: /ms-food-planner
-      dockerfile: Dockerfile
-    image: ms-food-planner
-    ports:
-      - "8082:8082"
-    networks:
-      - spring-cloud-network
 networks:
   spring-cloud-network:
     driver: bridge
