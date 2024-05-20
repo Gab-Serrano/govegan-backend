@@ -66,6 +66,16 @@
          "projectName": "ms-search-food",
          "args": "",
          "envFile": "${workspaceFolder}/.env"
+      },
+      {
+         "type": "java",
+         "name": "Spring Boot-MsFoodPlannerApplication<ms-food-planner>",
+         "request": "launch",
+         "cwd": "${workspaceFolder}",
+         "mainClass": "cl.govegan.msfoodplanner.MsFoodPlannerApplication",
+         "projectName": "ms-food-planner",
+         "args": "",
+         "envFile": "${workspaceFolder}/.env"
       }
    ]
 }
