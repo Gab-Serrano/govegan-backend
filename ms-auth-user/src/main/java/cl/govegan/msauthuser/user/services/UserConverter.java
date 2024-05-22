@@ -1,5 +1,7 @@
 package cl.govegan.msauthuser.user.services;
 
+import java.util.Set;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ public class UserConverter {
             .username(registerRequest.getUsername())
             .password(passwordEncoder.encode(registerRequest.getPassword()))
             .email(registerRequest.getEmail())
-            .role(Role.USER)
+            .roles(Set.of(Role.USER))
             .profile(Profile.builder()
                   .name(registerRequest.getName())
                   .profilePicture(registerRequest.getProfilePicture())
