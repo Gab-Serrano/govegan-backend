@@ -6,15 +6,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import cl.govegan.msauthuser.auth.jwt.JwtService;
 import cl.govegan.msauthuser.auth.models.RefreshToken;
 import cl.govegan.msauthuser.auth.requests.LoginRequest;
 import cl.govegan.msauthuser.auth.requests.RegisterRequest;
 import cl.govegan.msauthuser.auth.response.AuthResponse;
 import cl.govegan.msauthuser.exceptions.DuplicateUsernameException;
-import cl.govegan.msauthuser.user.config.UserDetailsImpl;
 import cl.govegan.msauthuser.user.models.User;
 import cl.govegan.msauthuser.user.repositories.UserRepository;
 import cl.govegan.msauthuser.user.services.UserConverter;
+import cl.govegan.msauthuser.user.services.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 
 @Service

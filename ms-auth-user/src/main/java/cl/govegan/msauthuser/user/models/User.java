@@ -1,5 +1,7 @@
 package cl.govegan.msauthuser.user.models;
 
+import java.util.Set;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,6 +26,6 @@ public class User {
    
    private String email;
    private String password;
-   private Role role;
+   private Set<Role> roles;
    private Profile profile;
 }

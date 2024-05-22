@@ -1,20 +1,19 @@
 package cl.govegan.msauthuser.user.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import cl.govegan.msauthuser.user.config.UserDetailsImpl;
 import cl.govegan.msauthuser.user.models.User;
 import cl.govegan.msauthuser.user.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl  implements UserDetailsService{
 
-   @Autowired
-   private UserRepository userRepository;
+   private final UserRepository userRepository;
 
    @Override
    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
