@@ -266,6 +266,105 @@ public class UserController {
 
         return ResponseEntity.ok().body(response);
     }
+
+    @PostMapping("/addFavoriteFoodById")
+    public ResponseEntity<ResponseHttpService> addFavoriteFoodById(Authentication authentication, @RequestParam String foodId) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        String username = userDetails.getUsername();
+
+        User userToUpdate = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+        if (userToUpdate.getProfile().getFavoriteFoods().contains(foodId)) {
+            
+            ResponseHttpService response = ResponseHttpService.builder()
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .message("Food already in favorites.")
+                    .data(userToUpdate.getProfile().getFavoriteFoods())
+                    .build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        userToUpdate.getProfile().getFavoriteFoods().add(foodId);
+        userRepository.save(userToUpdate);
+
+        ResponseHttpService response = ResponseHttpService.builder()
+                .status(HttpStatus.OK.value())
+                .message("Favorite food added successfully.")
+                .data(userToUpdate.getProfile().getFavoriteFoods())
+                .build();
+
+        return ResponseEntity.ok().body(response);
+    }
     
+    @GetMapping("/getFavoriteFoods")
+    public ResponseEntity<ResponseHttpService> getFavoriteFoods(Authentication authentication) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        String username = userDetails.getUsername();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+        return ResponseEntity.ok().body(ResponseHttpService.builder()
+                .status(HttpStatus.OK.value())
+                .message("Favorite foods retrieved successfully.")
+                .data(user.getProfile().getFavoriteFoods())
+                .build());
+    }
+
+    @DeleteMapping("/deleteFavoriteFoodById")
+    public ResponseEntity<ResponseHttpService> deleteFavoriteFoodById(Authentication authentication, @RequestParam String foodId) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        String username = userDetails.getUsername();
+
+        User userToUpdate = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+        if (!userToUpdate.getProfile().getFavoriteFoods().contains(foodId)) {
+            
+            ResponseHttpService response = ResponseHttpService.builder()
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .message("Food not in favorites.")
+                    .data(userToUpdate.getProfile().getFavoriteFoods())
+                    .build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        userToUpdate.getProfile().getFavoriteFoods().remove(foodId);
+        userRepository.save(userToUpdate);
+
+        ResponseHttpService response = ResponseHttpService.builder()
+                .status(HttpStatus.OK.value())
+                .message("Favorite food " + foodId + " deleted successfully.")
+                .data(userToUpdate.getProfile().getFavoriteFoods())
+                .build();
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/isFavoriteFood")
+    public ResponseEntity<ResponseHttpService> isFavoriteFood(Authentication authentication, @RequestParam String foodId) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        String username = userDetails.getUsername();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+        ResponseHttpService response = ResponseHttpService.builder()
+                .status(HttpStatus.OK.value())
+                .message("Food is favorite.")
+                .data(user.getProfile().getFavoriteFoods().contains(foodId))
+                .build();
+
+        return ResponseEntity.ok().body(response);
+    }
     
 }
