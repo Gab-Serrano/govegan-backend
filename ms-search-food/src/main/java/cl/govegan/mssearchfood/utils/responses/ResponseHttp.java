@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public final class HttpResponse<T> {
+public final class ResponseHttp<T> {
    private int status;
    private String message;
    private T data;

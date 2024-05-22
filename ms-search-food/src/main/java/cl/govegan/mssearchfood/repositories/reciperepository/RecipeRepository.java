@@ -1,5 +1,7 @@
 package cl.govegan.mssearchfood.repositories.reciperepository;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -18,5 +20,9 @@ public interface RecipeRepository extends MongoRepository<Recipe, String>{
 
    @Query("{ 'title' : { $regex: ?0, $options: 'i' } }")
    Page<Recipe> findByTitleContaining(@NonNull String keywords, Pageable pageable);
+
+   @Override
+   @NonNull
+   Optional<Recipe> findById(@NonNull String id);
 
 }

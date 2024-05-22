@@ -1,5 +1,7 @@
 package cl.govegan.msauthuser.user.models;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,10 +21,10 @@ public class Profile {
    private double height;
    private String city;
    private String country;
-   private String[] allergies;
-   private String[] favoriteFoods;
-   private String[] unwantedFoods;
-   private String[] favoriteRecipes;
+   private ArrayList<String> allergies;
+   private ArrayList<String> favoriteFoods;
+   private ArrayList<String> unwantedFoods;
+   private ArrayList<String> favoriteRecipes;
    private int caloriesPerDay;
    private double waterPerDay;
    private String title;

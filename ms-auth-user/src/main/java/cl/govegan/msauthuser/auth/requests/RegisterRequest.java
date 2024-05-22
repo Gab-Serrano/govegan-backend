@@ -1,5 +1,7 @@
 package cl.govegan.msauthuser.auth.requests;
 
+import java.util.ArrayList;
+
 import com.mongodb.lang.NonNull;
 
 import jakarta.validation.constraints.Email;
@@ -45,10 +47,10 @@ public class RegisterRequest {
 
       String city;
       String country;
-      String[] allergies;
-      String[] favoriteFoods;
-      String[] unwantedFoods;
-      String[] favoriteRecipes;
+      ArrayList<String> allergies;
+      ArrayList<String> favoriteFoods;
+      ArrayList<String> unwantedFoods;
+      ArrayList<String> favoriteRecipes;
 
       @Min(0)
       int caloriesPerDay;
