@@ -11,5 +11,6 @@ public interface RecipeService {
    
    Page<Recipe> findAll(Pageable pageable);
    Page<Recipe> findByTitleContaining(String keywords, Pageable pageable);
+   Recipe findById(String id);
 
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import cl.govegan.msauthuser.user.models.Profile;
 import cl.govegan.msauthuser.user.models.User;
 import cl.govegan.msauthuser.user.repositories.UserRepository;
+import cl.govegan.msauthuser.user.services.ResponseHttpService;
 import lombok.RequiredArgsConstructor;
+
 
 @EnableMethodSecurity(prePostEnabled = true)
 @RestController
@@ -162,4 +166,106 @@ public class UserController {
 
         return ResponseEntity.ok().body(userToUpdate);
     }
+
+    @PostMapping("/addFavoriteRecipeById")
+    public ResponseEntity<ResponseHttpService> addFavoriteRecipeById(Authentication authentication, @RequestParam String recipeId) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        String username = userDetails.getUsername();
+
+        User userToUpdate = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+        if (userToUpdate.getProfile().getFavoriteRecipes().contains(recipeId)) {
+            
+            ResponseHttpService response = ResponseHttpService.builder()
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .message("Recipe already in favorites.")
+                    .data(userToUpdate.getProfile().getFavoriteRecipes())
+                    .build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        userToUpdate.getProfile().getFavoriteRecipes().add(recipeId);
+        userRepository.save(userToUpdate);
+
+        ResponseHttpService response = ResponseHttpService.builder()
+                .status(HttpStatus.OK.value())
+                .message("Favorite recipe added successfully.")
+                .data(userToUpdate.getProfile().getFavoriteRecipes())
+                .build();
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/getFavoriteRecipes")
+    public ResponseEntity<ResponseHttpService> getFavoriteRecipes(Authentication authentication) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        String username = userDetails.getUsername();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+        return ResponseEntity.ok().body(ResponseHttpService.builder()
+                .status(HttpStatus.OK.value())
+                .message("Favorite recipes retrieved successfully.")
+                .data(user.getProfile().getFavoriteRecipes())
+                .build());
+    }
+
+    @DeleteMapping("/deleteFavoriteRecipeById")
+    public ResponseEntity<ResponseHttpService> deleteFavoriteRecipeById(Authentication authentication, @RequestParam String recipeId) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        String username = userDetails.getUsername();
+
+        User userToUpdate = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+        if (!userToUpdate.getProfile().getFavoriteRecipes().contains(recipeId)) {
+            
+            ResponseHttpService response = ResponseHttpService.builder()
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .message("Recipe not in favorites.")
+                    .data(userToUpdate.getProfile().getFavoriteRecipes())
+                    .build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        userToUpdate.getProfile().getFavoriteRecipes().remove(recipeId);
+        userRepository.save(userToUpdate);
+
+        ResponseHttpService response = ResponseHttpService.builder()
+                .status(HttpStatus.OK.value())
+                .message("Favorite recipe " + recipeId + " deleted successfully.")
+                .data(userToUpdate.getProfile().getFavoriteRecipes())
+                .build();
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/isFavoriteRecipe")
+    public ResponseEntity<ResponseHttpService> isFavoriteRecipe(Authentication authentication, @RequestParam String recipeId) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        String username = userDetails.getUsername();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+        ResponseHttpService response = ResponseHttpService.builder()
+                .status(HttpStatus.OK.value())
+                .message("Recipe is favorite.")
+                .data(user.getProfile().getFavoriteRecipes().contains(recipeId))
+                .build();
+
+        return ResponseEntity.ok().body(response);
+    }
+    
+    
 }

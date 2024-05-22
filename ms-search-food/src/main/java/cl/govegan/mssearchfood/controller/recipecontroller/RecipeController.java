@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cl.govegan.mssearchfood.exceptions.ResourceNotFoundException;
 import cl.govegan.mssearchfood.models.recipe.Recipe;
 import cl.govegan.mssearchfood.services.recipeservices.RecipeService;
-import cl.govegan.mssearchfood.utils.responses.HttpResponse;
+import cl.govegan.mssearchfood.utils.responses.ResponseHttp;
 
 @RestController
 @RequestMapping("/api/v1/recipes")
@@ -24,7 +24,7 @@ public class RecipeController {
     private RecipeService recipeService;
 
     @GetMapping()
-    public ResponseEntity<HttpResponse<Page<Recipe>>> findAllRecipes(
+    public ResponseEntity<ResponseHttp<Page<Recipe>>> findAllRecipes(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
 
@@ -32,14 +32,14 @@ public class RecipeController {
         Page<Recipe> recipesResult = recipeService.findAll(pageable);
 
         if (recipesResult.hasContent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new HttpResponse<>(200, "Recipes retrived", recipesResult));
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseHttp<>(200, "Recipes retrived", recipesResult));
         } else {
             throw new ResourceNotFoundException("No recipes found");
         }
     }
 
     @GetMapping("/findBySearch")
-    public ResponseEntity<HttpResponse<Page<Recipe>>> searchRecipeByText(
+    public ResponseEntity<ResponseHttp<Page<Recipe>>> searchRecipeByText(
             @RequestParam String search,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -48,10 +48,20 @@ public class RecipeController {
         Page<Recipe> recipesResult = recipeService.findByTitleContaining(search, pageable);
 
         if (recipesResult.hasContent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new HttpResponse<>(200, "Recipes retrived", recipesResult));
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseHttp<>(200, "Recipes retrived", recipesResult));
         } else {
             throw new ResourceNotFoundException("No recipes found");
         }
     }
 
+    @GetMapping("/findById")
+    public ResponseEntity<ResponseHttp<Recipe>> findRecipeById(@RequestParam String recipeId) {
+        Recipe recipe = recipeService.findById(recipeId);
+
+        if (recipe != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseHttp<>(200, "Recipe retrived", recipe));
+        } else {
+            throw new ResourceNotFoundException("No recipe found");
+        }
+    }
 }

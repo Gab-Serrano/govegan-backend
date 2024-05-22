@@ -23,5 +23,10 @@ public class RecipeServiceImpl implements RecipeService {
    public Page<Recipe> findByTitleContaining(String keywords, Pageable pageable) {
       return recipeRepository.findByTitleContaining(keywords, pageable);
    }
+
+   @Override
+   public Recipe findById(String id) {
+      return recipeRepository.findById(id).orElse(null);
+   }
    
 }
