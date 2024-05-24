@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.govegan.msauthuser.auth.models.RefreshToken;
+import cl.govegan.msauthuser.auth.requests.ForgotPasswordRequest;
 import cl.govegan.msauthuser.auth.requests.LoginRequest;
 import cl.govegan.msauthuser.auth.requests.RegisterRequest;
 import cl.govegan.msauthuser.auth.requests.TokenRefreshRequest;
@@ -47,6 +48,11 @@ public class AuthController {
                     return ResponseEntity.ok(new TokenRefreshResponse(newAccessToken, requestRefreshToken));
                 })
                 .orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<AuthResponse> forgotPassword(@RequestBody ForgotPasswordRequest forgotPasswordRequest) {
+        return ResponseEntity.ok(authService.forgotPassword(forgotPasswordRequest));
     }
     
 }
