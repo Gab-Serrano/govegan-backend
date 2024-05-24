@@ -13,5 +13,15 @@
     "name": "jwt.refresh.expiration",
     "type": "java.lang.String",
     "description": "A description for 'jwt.refresh.expiration'"
+  },
+  {
+    "name": "spring.url.resetpasword",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.url.resetpasword'"
+  },
+  {
+    "name": "spring.mail.from",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.mail.from'"
   }
 ]}

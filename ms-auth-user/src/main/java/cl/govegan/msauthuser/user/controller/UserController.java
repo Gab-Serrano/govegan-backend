@@ -366,5 +366,76 @@ public class UserController {
 
         return ResponseEntity.ok().body(response);
     }
+
+    @PostMapping("/addFoodAlergies")
+        public ResponseEntity<ResponseHttpService> addFoodAlergies(Authentication authentication, @RequestParam String foodId) {
+        
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        
+                String username = userDetails.getUsername();
+        
+                User userToUpdate = userRepository.findByUsername(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+        
+                userToUpdate.getProfile().getAllergies().add(foodId);
+                userRepository.save(userToUpdate);
+        
+                ResponseHttpService response = ResponseHttpService.builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Food alergies added successfully.")
+                        .data(userToUpdate.getProfile().getAllergies())
+                        .build();
+        
+                return ResponseEntity.ok().body(response);
+        }
+
+        @GetMapping("/getAllergies")
+        public ResponseEntity<ResponseHttpService> getAllergies(Authentication authentication) {
+        
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        
+            String username = userDetails.getUsername();
+        
+            User user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+        
+            return ResponseEntity.ok().body(ResponseHttpService.builder()
+                    .status(HttpStatus.OK.value())
+                    .message("Allergies retrieved successfully.")
+                    .data(user.getProfile().getAllergies())
+                    .build());
+        }
+
+        @DeleteMapping("/deleteFoodAlergies")
+        public ResponseEntity<ResponseHttpService> deleteFoodAlergies(Authentication authentication, @RequestParam String foodId) {
+        
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        
+            String username = userDetails.getUsername();
+        
+            User userToUpdate = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+        
+            if (!userToUpdate.getProfile().getAllergies().contains(foodId)) {
+                
+                ResponseHttpService response = ResponseHttpService.builder()
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .message("Food not in allergies.")
+                        .data(userToUpdate.getProfile().getAllergies())
+                        .build();
+                return ResponseEntity.badRequest().body(response);
+            }
+        
+            userToUpdate.getProfile().getAllergies().remove(foodId);
+            userRepository.save(userToUpdate);
+        
+            ResponseHttpService response = ResponseHttpService.builder()
+                    .status(HttpStatus.OK.value())
+                    .message("Food alergies " + foodId + " deleted successfully.")
+                    .data(userToUpdate.getProfile().getAllergies())
+                    .build();
+        
+            return ResponseEntity.ok().body(response);
+        }
     
 }
