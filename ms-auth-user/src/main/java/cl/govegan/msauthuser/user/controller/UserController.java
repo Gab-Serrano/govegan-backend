@@ -308,6 +308,20 @@ public class UserController {
                                         .data(userToUpdate.getProfile().getFavoriteFoods())
                                         .build();
                         return ResponseEntity.badRequest().body(response);
+                } else if (userToUpdate.getProfile().getAllergies().contains(foodId)) {
+                        ResponseHttpService response = ResponseHttpService.builder()
+                                        .status(HttpStatus.BAD_REQUEST.value())
+                                        .message("Food already in allergies.")
+                                        .data(userToUpdate.getProfile().getAllergies())
+                                        .build();
+                        return ResponseEntity.badRequest().body(response);
+                } else if (userToUpdate.getProfile().getUnwantedFoods().contains(foodId)) {
+                        ResponseHttpService response = ResponseHttpService.builder()
+                                        .status(HttpStatus.BAD_REQUEST.value())
+                                        .message("Food already in unwantedFoods.")
+                                        .data(userToUpdate.getProfile().getUnwantedFoods())
+                                        .build();
+                        return ResponseEntity.badRequest().body(response);
                 }
 
                 userToUpdate.getProfile().getFavoriteFoods().add(foodId);
@@ -411,6 +425,30 @@ public class UserController {
                 User userToUpdate = userRepository.findByUsername(username)
                                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
 
+                if (userToUpdate.getProfile().getAllergies().contains(foodId)) {
+
+                        ResponseHttpService response = ResponseHttpService.builder()
+                                        .status(HttpStatus.BAD_REQUEST.value())
+                                        .message("Food already in allergies.")
+                                        .data(userToUpdate.getProfile().getFavoriteFoods())
+                                        .build();
+                        return ResponseEntity.badRequest().body(response);
+                } else if (userToUpdate.getProfile().getFavoriteFoods().contains(foodId)) {
+                        ResponseHttpService response = ResponseHttpService.builder()
+                                        .status(HttpStatus.BAD_REQUEST.value())
+                                        .message("Food already in favorites.")
+                                        .data(userToUpdate.getProfile().getAllergies())
+                                        .build();
+                        return ResponseEntity.badRequest().body(response);
+                } else if (userToUpdate.getProfile().getUnwantedFoods().contains(foodId)) {
+                        ResponseHttpService response = ResponseHttpService.builder()
+                                        .status(HttpStatus.BAD_REQUEST.value())
+                                        .message("Food already in unwantedFoods.")
+                                        .data(userToUpdate.getProfile().getUnwantedFoods())
+                                        .build();
+                        return ResponseEntity.badRequest().body(response);
+                }
+
                 userToUpdate.getProfile().getAllergies().add(foodId);
                 userRepository.save(userToUpdate);
 
@@ -423,8 +461,8 @@ public class UserController {
                 return ResponseEntity.ok().body(response);
         }
 
-        @GetMapping("/getAllergies")
-        public ResponseEntity<ResponseHttpService> getAllergies(Authentication authentication) {
+        @GetMapping("/getAllAlergies")
+        public ResponseEntity<ResponseHttpService> getAllAlergies(Authentication authentication) {
 
                 UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
@@ -468,6 +506,103 @@ public class UserController {
                                 .status(HttpStatus.OK.value())
                                 .message("Food alergies " + foodId + " deleted successfully.")
                                 .data(userToUpdate.getProfile().getAllergies())
+                                .build();
+
+                return ResponseEntity.ok().body(response);
+        }
+
+        @PostMapping("/addUnwantedFood")
+        public ResponseEntity<ResponseHttpService> addUnwantedFood(Authentication authentication,
+                        @RequestParam String foodId) {
+
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+                String username = userDetails.getUsername();
+
+                User userToUpdate = userRepository.findByUsername(username)
+                                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+                if (userToUpdate.getProfile().getUnwantedFoods().contains(foodId)) {
+
+                        ResponseHttpService response = ResponseHttpService.builder()
+                                        .status(HttpStatus.BAD_REQUEST.value())
+                                        .message("Food already in UnwantedFoods.")
+                                        .data(userToUpdate.getProfile().getFavoriteFoods())
+                                        .build();
+                        return ResponseEntity.badRequest().body(response);
+                } else if (userToUpdate.getProfile().getAllergies().contains(foodId)) {
+                        ResponseHttpService response = ResponseHttpService.builder()
+                                        .status(HttpStatus.BAD_REQUEST.value())
+                                        .message("Food already in allergies.")
+                                        .data(userToUpdate.getProfile().getAllergies())
+                                        .build();
+                        return ResponseEntity.badRequest().body(response);
+                } else if (userToUpdate.getProfile().getFavoriteFoods().contains(foodId)) {
+                        ResponseHttpService response = ResponseHttpService.builder()
+                                        .status(HttpStatus.BAD_REQUEST.value())
+                                        .message("Food already in FavoriteFoods.")
+                                        .data(userToUpdate.getProfile().getUnwantedFoods())
+                                        .build();
+                        return ResponseEntity.badRequest().body(response);
+                }
+
+                userToUpdate.getProfile().getUnwantedFoods().add(foodId);
+                userRepository.save(userToUpdate);
+
+                ResponseHttpService response = ResponseHttpService.builder()
+                                .status(HttpStatus.OK.value())
+                                .message("Food alergies added successfully.")
+                                .data(userToUpdate.getProfile().getAllergies())
+                                .build();
+
+                return ResponseEntity.ok().body(response);
+        }
+
+        @GetMapping("/getAllUnwantedFood")
+        public ResponseEntity<ResponseHttpService> getAllUnwantedFood(Authentication authentication) {
+
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+                String username = userDetails.getUsername();
+
+                User user = userRepository.findByUsername(username)
+                                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+                return ResponseEntity.ok().body(ResponseHttpService.builder()
+                                .status(HttpStatus.OK.value())
+                                .message("Allergies retrieved successfully.")
+                                .data(user.getProfile().getUnwantedFoods())
+                                .build());
+        }
+
+        @DeleteMapping("/deleteUnwantedFoods")
+        public ResponseEntity<ResponseHttpService> deleteUnwantedFoods(Authentication authentication,
+                        @RequestParam String foodId) {
+
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+                String username = userDetails.getUsername();
+
+                User userToUpdate = userRepository.findByUsername(username)
+                                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+
+                if (!userToUpdate.getProfile().getUnwantedFoods().contains(foodId)) {
+
+                        ResponseHttpService response = ResponseHttpService.builder()
+                                        .status(HttpStatus.BAD_REQUEST.value())
+                                        .message("Food not in allergies.")
+                                        .data(userToUpdate.getProfile().getUnwantedFoods())
+                                        .build();
+                        return ResponseEntity.badRequest().body(response);
+                }
+
+                userToUpdate.getProfile().getUnwantedFoods().remove(foodId);
+                userRepository.save(userToUpdate);
+
+                ResponseHttpService response = ResponseHttpService.builder()
+                                .status(HttpStatus.OK.value())
+                                .message("Food alergies " + foodId + " deleted successfully.")
+                                .data(userToUpdate.getProfile().getUnwantedFoods())
                                 .build();
 
                 return ResponseEntity.ok().body(response);
