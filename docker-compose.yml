@@ -2,7 +2,7 @@ services:
   ms-auth-user:
     container_name: ms-auth-user
     build:
-      context: /ms-auth-user
+      context: ./ms-auth-user
       dockerfile: Dockerfile
     image: ms-auth-user
     ports:
@@ -13,7 +13,7 @@ services:
   ms-search-recipe:
     container_name: ms-search-food
     build:
-      context: /ms-search-food
+      context: ./ms-search-food
       dockerfile: Dockerfile
     image: ms-search-food
     ports:
