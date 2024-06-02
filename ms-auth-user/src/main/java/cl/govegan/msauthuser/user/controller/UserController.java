@@ -210,27 +210,28 @@ public class UserController {
 
         @GetMapping("/getFavoriteRecipes")
         public ResponseEntity<ResponseHttpService> getFavoriteRecipes(
-        Authentication authentication,
-        @RequestParam(value = "page", defaultValue = "0") int page,
-        @RequestParam(value = "size", defaultValue = "10") int size) {
+                        Authentication authentication,
+                        @RequestParam(value = "page", defaultValue = "0") int page,
+                        @RequestParam(value = "size", defaultValue = "10") int size) {
 
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                String username = userDetails.getUsername();
+                User user = userRepository.findByUsername(username)
+                                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
 
-        List<String> favoriteRecipes = user.getProfile().getFavoriteRecipes();
-        int start = Math.min(page * size, favoriteRecipes.size());
-        int end = Math.min((page + 1) * size, favoriteRecipes.size());
+                List<String> favoriteRecipes = user.getProfile().getFavoriteRecipes();
+                int start = Math.min(page * size, favoriteRecipes.size());
+                int end = Math.min((page + 1) * size, favoriteRecipes.size());
 
-        Pageable pageable = PageRequest.of(page, size);
-        Page<String> favoriteRecipesPage = new PageImpl<>(favoriteRecipes.subList(start, end), pageable, favoriteRecipes.size());
+                Pageable pageable = PageRequest.of(page, size);
+                Page<String> favoriteRecipesPage = new PageImpl<>(favoriteRecipes.subList(start, end), pageable,
+                                favoriteRecipes.size());
 
-        return ResponseEntity.ok().body(ResponseHttpService.builder()
-                .status(HttpStatus.OK.value())
-                .message("Favorite recipes retrieved successfully.")
-                .data(favoriteRecipesPage)
-                .build());
+                return ResponseEntity.ok().body(ResponseHttpService.builder()
+                                .status(HttpStatus.OK.value())
+                                .message("Favorite recipes retrieved successfully.")
+                                .data(favoriteRecipesPage)
+                                .build());
         }
 
         @DeleteMapping("/deleteFavoriteRecipeById")
@@ -334,21 +335,31 @@ public class UserController {
         }
 
         @GetMapping("/getFavoriteFoods")
-        public ResponseEntity<ResponseHttpService> getFavoriteFoods(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+        public ResponseEntity<ResponseHttpService> getFavoriteFoods(
+                        Authentication authentication,
+                        @RequestParam(value = "page", defaultValue = "0") int page,
+                        @RequestParam(value = "size", defaultValue = "10") int size) {
 
-        List<String> favoriteFoods = user.getProfile().getFavoriteFoods();
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                String username = userDetails.getUsername();
+                User user = userRepository.findByUsername(username)
+                                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
 
-        return ResponseEntity.ok().body(ResponseHttpService.builder()
-                .status(HttpStatus.OK.value())
-                .message("Favorite foods retrieved successfully.")
-                .data(favoriteFoods)
-                .build());
+                List<String> favoriteFoods = user.getProfile().getFavoriteFoods();
+
+                int start = Math.min(page * size, favoriteFoods.size());
+                int end = Math.min((page + 1) * size, favoriteFoods.size());
+
+                Pageable pageable = PageRequest.of(page, size);
+                Page<String> favoriteFoodsPage = new PageImpl<>(favoriteFoods.subList(start, end), pageable,
+                                favoriteFoods.size());
+
+                return ResponseEntity.ok().body(ResponseHttpService.builder()
+                                .status(HttpStatus.OK.value())
+                                .message("Favorite foods retrieved successfully.")
+                                .data(favoriteFoodsPage)
+                                .build());
         }
-
 
         @DeleteMapping("/deleteFavoriteFoodById")
         public ResponseEntity<ResponseHttpService> deleteFavoriteFoodById(Authentication authentication,
@@ -451,7 +462,10 @@ public class UserController {
         }
 
         @GetMapping("/getAllAlergies")
-        public ResponseEntity<ResponseHttpService> getAllAlergies(Authentication authentication) {
+        public ResponseEntity<ResponseHttpService> getAllAlergies(
+                        Authentication authentication,
+                        @RequestParam(value = "page", defaultValue = "0") int page,
+                        @RequestParam(value = "size", defaultValue = "10") int size) {
 
                 UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
@@ -460,10 +474,18 @@ public class UserController {
                 User user = userRepository.findByUsername(username)
                                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
 
+                List<String> allergies = user.getProfile().getAllergies();
+
+                int start = Math.min(page * size, allergies.size());
+                int end = Math.min((page + 1) * size, allergies.size());
+
+                Pageable pageable = PageRequest.of(page, size);
+                Page<String> allergiesPage = new PageImpl<>(allergies.subList(start, end), pageable, allergies.size());
+
                 return ResponseEntity.ok().body(ResponseHttpService.builder()
                                 .status(HttpStatus.OK.value())
                                 .message("Allergies retrieved successfully.")
-                                .data(user.getProfile().getAllergies())
+                                .data(allergiesPage)
                                 .build());
         }
 
