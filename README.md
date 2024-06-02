@@ -1,2 +1,2 @@
 # GoVegan Repositorio Backend
-Repositorio para el Front End de la app Go Vegan.
+Repositorio para el Back End de la app Go Vegan.
