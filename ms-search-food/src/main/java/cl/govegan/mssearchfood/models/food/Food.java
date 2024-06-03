@@ -44,4 +44,6 @@ public class Food {
     private double folicAcidMcg;
     private double folateEquivFDMcg;
     private double edibleFractionPercentage;
+    private String categoryId;
+    private String categoryName;
 }

@@ -20,17 +20,17 @@ public class FoodServiceImpl implements FoodService {
 
    @Override
    public Page<Food> findAll(Pageable pageable) {
-      return foodRepository.findAll(pageable);
+      return foodRepository.findAllWithCategory(pageable);
    }
 
    @Override
    public Page<Food> findByFoodNameContaining(String keywords, Pageable pageable) {
-      return foodRepository.findByNameContaining(keywords, pageable);
+      return foodRepository.findByNameContainingWithCategory(keywords, pageable);
    }
 
    @Override
    public Optional<Food> findById(String id) {
-      return foodRepository.findById(id);
+      return foodRepository.findByIdWithCategory(id);
    }
 
    @Override
