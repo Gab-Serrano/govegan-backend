@@ -50,8 +50,7 @@ public class RecipeController {
         if (recipesResult.hasContent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseHttp<>(200, "Recipes retrived", recipesResult));
         } else {
-            Page<Recipe> notFoundResult = Page.empty();
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseHttp<>(404, "No recipes found", notFoundResult));
+            throw new ResourceNotFoundException("No recipes found");
         }
     }
 
