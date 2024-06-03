@@ -1,5 +1,6 @@
 package cl.govegan.mssearchfood.services.foodservices;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import cl.govegan.mssearchfood.models.food.Food;
+import cl.govegan.mssearchfood.models.food.FoodCategory;
 import cl.govegan.mssearchfood.utils.requests.food.FoodRequest;
 
 @Service
@@ -21,5 +23,7 @@ public interface FoodService {
    public Food saveFood (FoodRequest foodRequest);
 
    public void deleteById(String id);
+
+   public List<FoodCategory> findAllCategories();
     
 }

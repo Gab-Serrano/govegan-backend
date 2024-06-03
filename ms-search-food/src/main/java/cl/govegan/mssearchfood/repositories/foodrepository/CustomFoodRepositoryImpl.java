@@ -17,6 +17,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import cl.govegan.mssearchfood.models.food.Food;
+import cl.govegan.mssearchfood.models.food.FoodCategory;
 
 @Repository
 public class CustomFoodRepositoryImpl implements CustomFoodRepository {
@@ -101,4 +102,9 @@ public class CustomFoodRepositoryImpl implements CustomFoodRepository {
       List<Food> results = mongoTemplate.aggregate(aggregation, "foods", Food.class).getMappedResults();
       return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
    }
+
+    @Override
+    public List<FoodCategory> findAllCategories() {
+        return mongoTemplate.findAll(FoodCategory.class);
+    }
 }

@@ -80,4 +80,9 @@ public class FoodController {
       return ResponseEntity.status(HttpStatus.OK).body(new ResponseHttp<>(200, "Food deleted successfully", null));
    }
 
+   @GetMapping("/categories")
+   public ResponseEntity<ResponseHttp<?>> findAllCategories() {
+      return ResponseEntity.status(HttpStatus.OK).body(new ResponseHttp<>(200, "Categories retrived", foodService.findAllCategories()));
+   }
+
 }
