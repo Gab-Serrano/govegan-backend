@@ -53,7 +53,8 @@ public class FoodController {
       if (!foodsResult.isEmpty()) {
          return ResponseEntity.status(HttpStatus.OK).body(new ResponseHttp<>(200, "Foods retrived", foodsResult));
       } else {
-         throw new ResourceNotFoundException("No foods found");
+         Page<Food> notFoundResult = Page.empty();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseHttp<>(404, "No recipes found", notFoundResult));
       }
    }
 
