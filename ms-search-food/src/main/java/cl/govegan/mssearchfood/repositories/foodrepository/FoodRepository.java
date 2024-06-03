@@ -12,7 +12,7 @@ import org.springframework.lang.NonNull;
 import cl.govegan.mssearchfood.models.food.Food;
 
 @RepositoryRestResource(collectionResourceRel = "foods", path = "foods")
-public interface FoodRepository extends MongoRepository<Food, String> {
+public interface FoodRepository extends MongoRepository<Food, String>, CustomFoodRepository {
 
    @Override
    @NonNull
